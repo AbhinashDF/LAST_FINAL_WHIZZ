@@ -1,4 +1,4 @@
-import type { Destination, Flight, Hotel, TripPackage } from "./schema";
+import type { Destination, Flight, Hotel, TripPackage } from "./types";
 
 // Sample destinations - persistent data that survives deployment
 export const sampleDestinations: Destination[] = [

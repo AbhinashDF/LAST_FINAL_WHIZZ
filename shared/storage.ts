@@ -15,7 +15,7 @@ import {
   type InsertUser,
   type TripPackage,
   type User
-} from "./schema";
+} from "./types";
 
 export interface IStorage {
   // User operations

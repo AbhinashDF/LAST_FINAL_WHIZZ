@@ -1,7 +1,30 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
-import { insertBookingSchema, insertContactSchema } from '../shared/schema';
 import { storage } from '../shared/storage';
+import type { InsertBooking, InsertContact } from '../shared/types';
+
+// Simple validation schemas for API requests
+const bookingSchema = z.object({
+  packageId: z.string().optional(),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  travelers: z.number().min(1),
+  departureDate: z.string().min(1),
+  returnDate: z.string().optional(),
+  totalPrice: z.string().min(1)
+});
+
+const contactSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+  subject: z.string().optional(),
+  message: z.string().min(1),
+  newsletter: z.boolean().optional()
+});
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
@@ -50,7 +73,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Bookings API
     if (path === '/bookings' && req.method === 'POST') {
-      const bookingData = insertBookingSchema.parse(req.body);
+      const parsedData = bookingSchema.parse(req.body);
+      const bookingData: InsertBooking = {
+        packageId: parsedData.packageId,
+        firstName: parsedData.firstName,
+        lastName: parsedData.lastName,
+        email: parsedData.email,
+        phone: parsedData.phone,
+        travelers: parsedData.travelers,
+        departureDate: new Date(parsedData.departureDate),
+        returnDate: parsedData.returnDate ? new Date(parsedData.returnDate) : undefined,
+        totalPrice: parsedData.totalPrice
+      };
       const booking = await storage.createBooking(bookingData);
       return res.status(201).json(booking);
     }
@@ -79,7 +113,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Contact form API
     if (path === '/contacts' && req.method === 'POST') {
-      const contactData = insertContactSchema.parse(req.body);
+      const parsedData = contactSchema.parse(req.body);
+      const contactData: InsertContact = {
+        firstName: parsedData.firstName,
+        lastName: parsedData.lastName,
+        email: parsedData.email,
+        phone: parsedData.phone,
+        subject: parsedData.subject,
+        message: parsedData.message,
+        newsletter: parsedData.newsletter
+      };
       const contact = await storage.createContact(contactData);
       return res.status(201).json({ 
         message: 'Contact form submitted successfully',
