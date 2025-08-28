@@ -180,10 +180,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).end();
   }
 
+  // Debug logging
+  console.log('API Request:', {
+    method: req.method,
+    url: req.url,
+    path: req.url?.replace('/api', ''),
+    query: req.query,
+    body: req.body
+  });
+
   const { url } = req;
-  const path = url?.replace('/api', '') || '';
+  // Handle different URL formats in Vercel
+  let path = '';
+  if (url) {
+    // Remove /api prefix if present
+    path = url.replace('/api', '');
+    // Also handle cases where the path might be in req.url or req.path
+    if (!path && req.url) {
+      path = req.url.replace('/api', '');
+    }
+  }
 
   try {
+    // Test endpoint
+    if (path === '/test' && req.method === 'GET') {
+      return res.json({ 
+        message: 'API is working!',
+        timestamp: new Date().toISOString(),
+        path: path,
+        method: req.method
+      });
+    }
+
     // Destinations API
     if (path === '/destinations' && req.method === 'GET') {
       const destinations = await storage.getAllDestinations();

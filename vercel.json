@@ -13,23 +13,18 @@
     "api/index.ts": {
       "runtime": "@vercel/node@5.3.16"
     },
-    "api/debug.ts": {
-      "runtime": "@vercel/node@5.3.16"
-    },
-    "api/destinations.ts": {
-      "runtime": "@vercel/node@5.3.16"
-    },
-    "api/test.ts": {
+    "api/simple-test.ts": {
       "runtime": "@vercel/node@5.3.16"
     }
   },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.ts"
+      "src": "/api/simple-test",
+      "dest": "/api/simple-test.ts"
     },
     {
-      "handle": "filesystem"
+      "src": "/api/(.*)",
+      "dest": "/api/index.ts"
     },
     {
       "src": "/(.*)",
