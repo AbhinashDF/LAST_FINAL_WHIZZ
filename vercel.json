@@ -11,8 +11,43 @@
   ],
   "routes": [
     {
+      "src": "/api/test",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/destinations",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/trip-packages",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/bookings",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/contacts",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/flights",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/hotels",
+      "dest": "/api/index.ts"
+    },
+    {
+      "src": "/api/simple-test",
+      "dest": "/api/simple-test.ts"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/index.ts"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
