@@ -9,14 +9,6 @@
       }
     }
   ],
-  "functions": {
-    "api/index.ts": {
-      "runtime": "@vercel/node@5.3.16"
-    },
-    "api/simple-test.ts": {
-      "runtime": "@vercel/node@5.3.16"
-    }
-  },
   "routes": [
     {
       "src": "/api/simple-test",
