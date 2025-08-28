@@ -1,5 +1,34 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { storage } from './storage';
+
+// Inline storage for destinations
+const destinations = [
+  {
+    id: "dest-1",
+    name: "Paris, France",
+    description: "The City of Light offers iconic landmarks, world-class museums, and romantic ambiance.",
+    image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop",
+    country: "France",
+    continent: "Europe",
+    rating: 4.8,
+    priceRange: "$$$",
+    bestTimeToVisit: "April to October",
+    highlights: ["Eiffel Tower", "Louvre Museum", "Notre-Dame Cathedral", "Champs-Élysées"],
+    createdAt: new Date("2024-01-01")
+  },
+  {
+    id: "dest-2",
+    name: "Tokyo, Japan",
+    description: "A fascinating blend of ultramodern and traditional, offering unique cultural experiences.",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop",
+    country: "Japan",
+    continent: "Asia",
+    rating: 4.9,
+    priceRange: "$$$",
+    bestTimeToVisit: "March to May and September to November",
+    highlights: ["Shibuya Crossing", "Senso-ji Temple", "Tokyo Skytree", "Tsukiji Market"],
+    createdAt: new Date("2024-01-01")
+  }
+];
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
@@ -13,7 +42,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     if (req.method === 'GET') {
-      const destinations = await storage.getAllDestinations();
       return res.json(destinations);
     }
 
