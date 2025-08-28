@@ -1,5 +1,4 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { storage } from './storage';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
@@ -12,14 +11,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    if (req.method === 'GET') {
-      const destinations = await storage.getAllDestinations();
-      return res.json(destinations);
-    }
-
-    return res.status(405).json({ message: 'Method not allowed' });
+    return res.json({ 
+      message: 'API is working!',
+      timestamp: new Date().toISOString(),
+      method: req.method,
+      url: req.url
+    });
   } catch (error) {
-    console.error('Destinations API Error:', error);
+    console.error('Test API Error:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 }

@@ -18,6 +18,9 @@
     },
     "api/destinations.ts": {
       "runtime": "@vercel/node@5.3.16"
+    },
+    "api/test.ts": {
+      "runtime": "@vercel/node@5.3.16"
     }
   },
   "routes": [

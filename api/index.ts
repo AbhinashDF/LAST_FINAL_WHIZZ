@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
-import { storage } from '../shared/storage';
-import type { InsertBooking, InsertContact } from '../shared/types';
+import { storage } from './storage';
+import type { InsertBooking, InsertContact } from './types';
 
 // Simple validation schemas for API requests
 const bookingSchema = z.object({
