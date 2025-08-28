@@ -8,5 +8,11 @@
         "distDir": "dist/public"
       }
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.ts"
+    }
   ]
 }
