@@ -11,15 +11,8 @@
   ],
   "routes": [
     {
-      "src": "/api/simple-test",
-      "dest": "/api/simple-test.ts"
-    },
-    {
       "src": "/api/(.*)",
       "dest": "/api/index.ts"
-    },
-    {
-      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
